@@ -1,22 +1,35 @@
 package scheduler;
 
-public class Task<K, V> implements Comparable<V> {
+import java.time.LocalDateTime;
+
+public class Task<K> implements Comparable<LocalDateTime> {
 
     private K key;
 
-    private V value;
+    private LocalDateTime time;
 
-    Task(K key, V value) {
+    Runnable runnable;
+
+    public Task(K key, LocalDateTime time, Runnable runnable) {
         this.key = key;
-        this.value = value;
+        this.time = time;
+        this.runnable = runnable;
     }
 
     public K getKey() {
         return this.key;
     }
 
-    public V getValue() {
-        return this.value;
+    public LocalDateTime getTime() {
+        return this.time;
+    }
+
+    public void run() {
+        runnable.run();
+    }
+
+    public void editDateTime(LocalDateTime time) {
+        this.time = time;
     }
 
     @Override
@@ -31,19 +44,24 @@ public class Task<K, V> implements Comparable<V> {
 
         final Task task = (Task) o;
 
-        if (this.key == null ? task.getKey() != null : this.key.equals(task.getKey())) {
+        if (this.key == null ? task.getKey() != null : !this.key.equals(task.getKey())) {
             return false;
         }
 
-        if (this.value == null ? task.getValue() != null : this.value.equals(task.getValue())) {
-            return false;
-        }
+//        if (this.time == null ? task.getTime() != null : this.time.equals(task.getTime())) {
+//            return false;
+//        }
 
         return true;
     }
 
     @Override
-    public int compareTo(V o) {
+    public int compareTo(LocalDateTime o) {
         return 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.key.hashCode();
     }
 }

@@ -4,6 +4,7 @@ public class EditableTaskScheduler extends TaskScheduler implements EditableSche
 
     @Override
     public boolean editTask(Task task) {
-        return false;
+        deleteTask(task);
+        return scheduleTask(task);
     }
 }
