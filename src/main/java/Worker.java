@@ -1,6 +1,6 @@
 public class Worker implements Runnable{
     @Override
     public void run() {
-        System.out.println("Worker is up and running");
+        System.out.println("Workers can be configured to do the work");
     }
 }
